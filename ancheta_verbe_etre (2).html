@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ancheta verbelor cu être</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f0e17;
+  --bg2: #1a1828;
+  --bg3: #242236;
+  --gold: #f5c842;
+  --gold2: #e8b520;
+  --pink: #ff6b9d;
+  --blue: #5b9bd5;
+  --green: #6bcb77;
+  --red: #ff6b6b;
+  --text: #f0eee8;
+  --text2: #a09dbb;
+  --text3: #6b6880;
+  --border: rgba(245,200,66,.15);
+  --border2: rgba(255,255,255,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  padding:1.25rem;
+  min-height:100vh;
+  background-image:
+    radial-gradient(ellipse 60% 40% at 20% 0%, rgba(245,200,66,.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 80% 100%, rgba(255,107,157,.06) 0%, transparent 60%);
+}
+.w{max-width:680px;margin:0 auto}
+
+/* ── HEADER ── */
+.hdr{
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:1.25rem 1.5rem;
+  margin-bottom:1rem;
+  background:linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);
+  position:relative;
+  overflow:hidden;
+}
+.hdr::before{
+  content:'🔍';
+  position:absolute;right:1.25rem;top:50%;transform:translateY(-50%);
+  font-size:2.5rem;opacity:.18;
+}
+.stamp{
+  font-size:10px;letter-spacing:.14em;color:var(--gold);
+  text-transform:uppercase;margin-bottom:6px;font-weight:600;
+}
+.htitle{
+  font-family:'Playfair Display',serif;
+  font-size:22px;font-weight:900;
+  color:var(--text);
+  letter-spacing:-.01em;
+}
+.htitle span{color:var(--gold)}
+.hsub{font-size:13px;color:var(--text2);margin-top:4px}
+
+/* ── STATS ── */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:1rem}
+.sc{
+  background:var(--bg2);
+  border:1px solid var(--border2);
+  border-radius:12px;padding:12px 14px;
+  position:relative;overflow:hidden;
+  transition:border-color .2s;
+}
+.sc:hover{border-color:var(--border)}
+.sn{font-size:26px;font-weight:700;color:var(--gold);font-family:'Playfair Display',serif}
+.sl{font-size:11px;color:var(--text3);margin-top:1px;text-transform:uppercase;letter-spacing:.06em}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:8px;margin-bottom:1.25rem;flex-wrap:wrap}
+.tab{
+  font-size:12px;padding:8px 14px;border-radius:10px;
+  border:1px solid var(--border2);background:var(--bg2);
+  color:var(--text2);cursor:pointer;transition:all .2s;
+  font-family:'DM Sans',sans-serif;font-weight:500;
+}
+.tab:hover{border-color:var(--border);color:var(--text);background:var(--bg3)}
+.tab.on{
+  background:var(--gold);color:#0f0e17;
+  border-color:var(--gold);font-weight:600;
+}
+.badge{
+  font-size:9px;padding:2px 6px;border-radius:4px;margin-left:5px;
+  background:rgba(0,0,0,.15);color:inherit;font-weight:500;letter-spacing:.04em;text-transform:uppercase;
+}
+.tab:not(.on) .badge{background:var(--bg3);color:var(--text3)}
+
+/* ── SUBLABEL ── */
+.sublbl{
+  font-size:13px;color:var(--text2);margin-bottom:14px;line-height:1.6;
+  padding:10px 14px;background:var(--bg2);border-radius:10px;
+  border-left:3px solid var(--gold);
+}
+.sublbl strong{color:var(--gold)}
+.sublbl em{color:var(--pink);font-style:italic}
+
+/* ── FEEDBACK ── */
+.fb{
+  font-size:13px;color:var(--text2);padding:10px 14px;
+  border-radius:10px;background:var(--bg2);border:1px solid var(--border2);
+  margin-bottom:.75rem;min-height:38px;line-height:1.5;
+  transition:all .3s;
+}
+.fb.ok{color:#0f0e17;background:var(--green);border-color:var(--green);font-weight:500}
+.fb.er{color:#fff;background:var(--red);border-color:var(--red);font-weight:500}
+.fb.dn{color:#0f0e17;background:var(--gold);border-color:var(--gold);font-weight:500}
+
+/* ── BUTTONS ── */
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem}
+.btn{
+  font-size:13px;padding:8px 16px;border-radius:10px;
+  border:1px solid var(--border2);background:var(--bg2);
+  color:var(--text);cursor:pointer;transition:all .2s;
+  font-family:'DM Sans',sans-serif;font-weight:500;
+}
+.btn:hover{background:var(--bg3);border-color:var(--border)}
+.btn.pri{
+  background:var(--gold);color:#0f0e17;border-color:var(--gold);font-weight:600;
+}
+.btn.pri:hover{background:var(--gold2);border-color:var(--gold2)}
+.btn.sec{color:var(--text2)}
+
+/* ── LEGEND ── */
+.leg{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:.875rem;font-size:12px;color:var(--text2)}
+.li{display:flex;align-items:center;gap:6px}
+.lp{width:12px;height:12px;border-radius:4px;border:1.5px solid}
+.lg{background:rgba(107,203,119,.2);border-color:var(--green)}
+.lb{background:rgba(91,155,213,.2);border-color:var(--blue)}
+.ld{background:transparent;border-color:var(--text3);border-style:dashed}
+
+/* ── SCENA CRIMEI ── */
+.scene{
+  border:1px solid var(--border2);border-radius:14px;
+  padding:1.5rem;background:var(--bg2);
+  font-size:15px;line-height:2.5;color:var(--text);
+  margin-bottom:.875rem;
+  background-image:radial-gradient(ellipse 80% 60% at 50% 0%, rgba(245,200,66,.04) 0%, transparent 70%);
+}
+.vw{
+  display:inline;cursor:pointer;
+  border-bottom:2px dashed var(--text3);
+  font-weight:600;color:var(--gold);
+  transition:all .15s;padding:0 3px;
+}
+.vw:hover{
+  background:rgba(245,200,66,.12);
+  border-bottom-color:var(--gold);
+  border-radius:4px;
+}
+@keyframes popIn{
+  0%{transform:scale(.85);opacity:0}
+  60%{transform:scale(1.08)}
+  100%{transform:scale(1);opacity:1}
+}
+.vw.ve{
+  background:rgba(107,203,119,.18);
+  border:1px solid var(--green);border-radius:5px;
+  color:var(--green);cursor:default;font-weight:700;
+  padding:1px 6px;animation:popIn .25s ease;
+}
+.vw.vp{
+  background:rgba(91,155,213,.18);
+  border:1px solid var(--blue);border-radius:5px;
+  color:var(--blue);cursor:default;font-weight:700;
+  padding:1px 6px;animation:popIn .25s ease;
+}
+
+/* ── DOSAR MCQ ── */
+.dos-card{
+  border:1px solid var(--border2);border-radius:14px;
+  padding:1.5rem;background:var(--bg2);margin-bottom:.875rem;
+  background-image:radial-gradient(ellipse 60% 40% at 100% 0%, rgba(255,107,157,.04) 0%, transparent 60%);
+}
+.dos-ro{font-size:16px;color:var(--text);margin-bottom:4px;line-height:1.8;font-weight:500}
+.blank{
+  display:inline-block;min-width:100px;
+  border-bottom:2px solid var(--gold);margin:0 4px;
+  text-align:center;color:var(--gold);font-weight:700;
+}
+.dos-inf{font-size:12px;color:var(--text3);margin-bottom:16px}
+.dos-inf strong{color:var(--pink)}
+.dos-opts{display:flex;gap:8px;flex-wrap:wrap}
+.dos-opt{
+  font-size:13px;padding:10px 18px;border-radius:10px;
+  border:1px solid var(--border2);background:var(--bg3);
+  color:var(--text);cursor:pointer;transition:all .18s;
+  font-family:'DM Sans',sans-serif;font-weight:500;
+}
+.dos-opt:hover:not(:disabled){
+  background:rgba(245,200,66,.12);
+  border-color:var(--gold);color:var(--gold);
+}
+.dos-opt.ok{
+  background:rgba(107,203,119,.2);border-color:var(--green);
+  color:var(--green);font-weight:600;
+  animation:popIn .2s ease;
+}
+.dos-opt.er{
+  background:rgba(255,107,107,.15);border-color:var(--red);
+  color:var(--red);
+}
+.dos-opt:disabled{cursor:default;opacity:.7}
+.dos-prog{font-size:12px;color:var(--text3);margin-bottom:10px;letter-spacing:.04em}
+
+/* ── PROGRESS BAR ── */
+.prog-bar-wrap{height:4px;background:var(--bg3);border-radius:2px;margin-bottom:14px;overflow:hidden}
+.prog-bar{height:4px;background:linear-gradient(90deg,var(--gold),var(--pink));border-radius:2px;transition:width .4s ease}
+
+/* ── INTEROGATORIU ── */
+.q-card{
+  border:1px solid var(--border2);border-radius:14px;
+  padding:1.5rem;background:var(--bg2);margin-bottom:.875rem;
+  background-image:radial-gradient(ellipse 60% 40% at 0% 100%, rgba(91,155,213,.05) 0%, transparent 60%);
+}
+.q-stamp{
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--pink);margin-bottom:8px;font-weight:600;
+}
+.q-ro{
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:700;color:var(--text);
+  margin-bottom:4px;line-height:1.4;
+}
+.q-hint{font-size:13px;color:var(--text3);margin-bottom:18px}
+.q-hint strong{color:var(--pink)}
+.q-label{
+  font-size:10px;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--text3);margin-bottom:8px;font-weight:600;
+}
+.accent-kb{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px}
+.ak{
+  font-size:14px;padding:6px 11px;border-radius:8px;
+  border:1px solid var(--border2);background:var(--bg3);
+  color:var(--gold);cursor:pointer;transition:all .12s;
+  min-width:34px;text-align:center;font-family:'DM Sans',sans-serif;
+  font-weight:600;line-height:1;
+}
+.ak:hover{background:rgba(245,200,66,.15);border-color:var(--gold);transform:translateY(-2px)}
+.ak:active{transform:scale(.88) translateY(0)}
+.q-input-row{display:flex;gap:8px;align-items:center}
+.q-input{
+  flex:1;font-size:15px;padding:11px 15px;
+  border-radius:10px;border:1.5px solid var(--border2);
+  background:var(--bg3);color:var(--text);outline:none;
+  transition:all .2s;font-family:'DM Sans',sans-serif;
+}
+.q-input::placeholder{color:var(--text3)}
+.q-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(245,200,66,.1)}
+.q-input.ok{border-color:var(--green);background:rgba(107,203,119,.08)}
+.q-input.er{border-color:var(--red);background:rgba(255,107,107,.06)}
+.q-submit{
+  font-size:13px;padding:11px 22px;border-radius:10px;border:none;
+  background:var(--gold);color:#0f0e17;cursor:pointer;font-weight:700;
+  transition:all .2s;white-space:nowrap;font-family:'DM Sans',sans-serif;
+}
+.q-submit:hover{background:var(--gold2);transform:translateY(-1px)}
+.q-submit:active{transform:translateY(0)}
+.q-submit:disabled{background:var(--bg3);color:var(--text3);cursor:default;transform:none}
+.q-prog{font-size:12px;color:var(--text3);margin-bottom:10px;letter-spacing:.04em}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
+}
+#p-scene,#p-dossier,#p-quiz{animation:fadeUp .3s ease}
+
+/* ── SCORE FLASH ── */
+@keyframes scoreFlash{
+  0%{color:var(--gold)}
+  50%{color:var(--pink);transform:scale(1.3)}
+  100%{color:var(--gold);transform:scale(1)}
+}
+.score-flash{animation:scoreFlash .4s ease}
+</style>
+</head>
+<body>
+<div class="w">
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="stamp">Dosar nr. 4001 · Brigada Gramaticală</div>
+  <div class="htitle">Ancheta verbelor cu <span>être</span></div>
+  <div class="hsub">40 de suspecți · trei niveluri de anchetă</div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="sc"><div class="sn">40</div><div class="sl">suspecți</div></div>
+  <div class="sc"><div class="sn" id="sf">0</div><div class="sl">identificați</div></div>
+  <div class="sc"><div class="sn" id="ss">0</div><div class="sl">puncte</div></div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab on" id="tb-scene" onclick="go('scene')">① Scena crimei <span class="badge">recunoaștere</span></button>
+  <button class="tab" id="tb-dossier" onclick="go('dossier')">② Dosar <span class="badge">MCQ</span></button>
+  <button class="tab" id="tb-quiz" onclick="go('quiz')">③ Interogatoriu <span class="badge">producție</span></button>
+</div>
+
+<!-- TAB 1 — SCENA CRIMEI -->
+<div id="p-scene" style="display:block">
+  <div class="sublbl">Citește raportul în română. <strong>Click pe verbele subliniate</strong> pentru a descoperi forma lor în franceză (<em>passé composé</em>).</div>
+  <div class="leg">
+    <div class="li"><div class="lp ld"></div><span>nedezvăluit</span></div>
+    <div class="li"><div class="lp lg"></div><span>être — mișcare/stare</span></div>
+    <div class="li"><div class="lp lb"></div><span>pronominal</span></div>
+  </div>
+  <div class="scene" id="sceneBox"></div>
+  <div class="fb" id="sceneFb">Click pe un verb subliniat pentru a-l descoperi.</div>
+  <div class="btns">
+    <button class="btn pri" onclick="revAll()">Revelează toți</button>
+    <button class="btn sec" onclick="resetScene()">Resetează</button>
+  </div>
+</div>
+
+<!-- TAB 2 — DOSAR MCQ -->
+<div id="p-dossier" style="display:none">
+  <div class="sublbl">Alege forma corectă de <em>passé composé</em> pentru verbul din propoziție.</div>
+  <div class="dos-prog" id="dosProgLbl">Exercițiu 1 / 40</div>
+  <div class="prog-bar-wrap"><div class="prog-bar" id="dosBar" style="width:0%"></div></div>
+  <div id="dosCardBox"></div>
+  <div class="fb" id="dosFb">Alege una din variante.</div>
+  <div class="btns">
+    <button class="btn pri" onclick="nextDos()">Următorul ↗</button>
+    <button class="btn sec" onclick="resetDos()">Resetează</button>
+  </div>
+</div>
+
+<!-- TAB 3 — INTEROGATORIU -->
+<div id="p-quiz" style="display:none">
+  <div class="sublbl">Scrie forma corectă de <em>passé composé</em>. Folosește tastatura de mai jos pentru caractere speciale.</div>
+  <div class="q-prog" id="qProgLbl">Întrebare 1 / 40</div>
+  <div class="prog-bar-wrap"><div class="prog-bar" id="qBar" style="width:0%"></div></div>
+  <div id="qCardBox"></div>
+  <div class="fb" id="qFb">Scrie forma completă și apasă Verifică.</div>
+  <div class="btns">
+    <button class="btn pri" onclick="nextQ()">Următorul ↗</button>
+    <button class="btn sec" onclick="resetQ()">Resetează</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+var S=[
+  {i:"aller",t:"a merge",p:"est allé(e)",k:"etre"},
+  {i:"venir",t:"a veni",p:"est venu(e)",k:"etre"},
+  {i:"arriver",t:"a sosi",p:"est arrivé(e)",k:"etre"},
+  {i:"partir",t:"a pleca",p:"est parti(e)",k:"etre"},
+  {i:"entrer",t:"a intra",p:"est entré(e)",k:"etre"},
+  {i:"sortir",t:"a ieși",p:"est sorti(e)",k:"etre"},
+  {i:"monter",t:"a urca",p:"est monté(e)",k:"etre"},
+  {i:"descendre",t:"a coborî",p:"est descendu(e)",k:"etre"},
+  {i:"naître",t:"a se naște",p:"est né(e)",k:"etre"},
+  {i:"mourir",t:"a muri",p:"est mort(e)",k:"etre"},
+  {i:"tomber",t:"a cădea",p:"est tombé(e)",k:"etre"},
+  {i:"rester",t:"a rămâne",p:"est resté(e)",k:"etre"},
+  {i:"retourner",t:"a se întoarce",p:"est retourné(e)",k:"etre"},
+  {i:"passer",t:"a trece",p:"est passé(e)",k:"etre"},
+  {i:"rentrer",t:"a se întoarce acasă",p:"est rentré(e)",k:"etre"},
+  {i:"revenir",t:"a reveni",p:"est revenu(e)",k:"etre"},
+  {i:"devenir",t:"a deveni",p:"est devenu(e)",k:"etre"},
+  {i:"remonter",t:"a urca din nou",p:"est remonté(e)",k:"etre"},
+  {i:"redescendre",t:"a coborî din nou",p:"est redescendu(e)",k:"etre"},
+  {i:"repartir",t:"a pleca din nou",p:"est reparti(e)",k:"etre"},
+  {i:"se lever",t:"a se ridica",p:"s'est levé(e)",k:"pron"},
+  {i:"se laver",t:"a se spăla",p:"s'est lavé(e)",k:"pron"},
+  {i:"s'habiller",t:"a se îmbrăca",p:"s'est habillé(e)",k:"pron"},
+  {i:"se raser",t:"a se bărbieri",p:"s'est rasé(e)",k:"pron"},
+  {i:"s'asseoir",t:"a se așeza",p:"s'est assis(e)",k:"pron"},
+  {i:"s'endormir",t:"a adormi",p:"s'est endormi(e)",k:"pron"},
+  {i:"se réveiller",t:"a se trezi",p:"s'est réveillé(e)",k:"pron"},
+  {i:"se souvenir",t:"a-și aminti",p:"s'est souvenu(e)",k:"pron"},
+  {i:"se moquer",t:"a-și bate joc",p:"s'est moqué(e)",k:"pron"},
+  {i:"se disputer",t:"a se certa",p:"se sont disputé(e)s",k:"pron"},
+  {i:"se réconcilier",t:"a se împăca",p:"se sont réconcilié(e)s",k:"pron"},
+  {i:"s'approcher",t:"a se apropia",p:"s'est approché(e)",k:"pron"},
+  {i:"se relever",t:"a se ridica din nou",p:"s'est relevé(e)",k:"pron"},
+  {i:"s'arrêter",t:"a se opri",p:"s'est arrêté(e)",k:"pron"},
+  {i:"se retourner",t:"a se întoarce",p:"s'est retourné(e)",k:"pron"},
+  {i:"s'éloigner",t:"a se depărta",p:"s'est éloigné(e)",k:"pron"},
+  {i:"se sentir",t:"a se simți",p:"s'est senti(e)",k:"pron"},
+  {i:"se promener",t:"a se plimba",p:"s'est promené(e)",k:"pron"},
+  {i:"se dépêcher",t:"a se grăbi",p:"s'est dépêché(e)",k:"pron"},
+  {i:"se brosser",t:"a se peria",p:"s'est brossé(e)",k:"pron"}
+];
+
+var scene=[
+  {b:0,ro:"Ieri seară, inspectorul "},
+  {b:1,ro:"a sosit",fr:"est arrivé",i:"arriver",k:"etre"},
+  {b:0,ro:" la locul faptei. Martorii "},
+  {b:1,ro:"s-au certat",fr:"se sont disputés",i:"se disputer",k:"pron"},
+  {b:0,ro:" în stradă. Un bărbat "},
+  {b:1,ro:"a căzut",fr:"est tombé",i:"tomber",k:"etre"},
+  {b:0,ro:" de pe scări. Victima "},
+  {b:1,ro:"s-a ridicat",fr:"s'est relevée",i:"se relever",k:"pron"},
+  {b:0,ro:" cu greu. Suspectul principal "},
+  {b:1,ro:"a plecat",fr:"est parti",i:"partir",k:"etre"},
+  {b:0,ro:" repede. O femeie "},
+  {b:1,ro:"s-a apropiat",fr:"s'est approchée",i:"s'approcher",k:"pron"},
+  {b:0,ro:" de inspector. Ea "},
+  {b:1,ro:"și-a amintit",fr:"s'est souvenue",i:"se souvenir",k:"pron"},
+  {b:0,ro:" de o mașină neagră. Inspectorul "},
+  {b:1,ro:"a rămas",fr:"est resté",i:"rester",k:"etre"},
+  {b:0,ro:" calm și "},
+  {b:1,ro:"a intrat",fr:"est entré",i:"entrer",k:"etre"},
+  {b:0,ro:" în clădire. El "},
+  {b:1,ro:"a urcat",fr:"est monté",i:"monter",k:"etre"},
+  {b:0,ro:" la etajul trei. O umbră "},
+  {b:1,ro:"s-a depărtat",fr:"s'est éloignée",i:"s'éloigner",k:"pron"},
+  {b:0,ro:" rapid. Inspectorul "},
+  {b:1,ro:"s-a oprit",fr:"s'est arrêté",i:"s'arrêter",k:"pron"},
+  {b:0,ro:". Cazul abia "},
+  {b:1,ro:"s-a născut",fr:"est né",i:"naître",k:"etre"},
+  {b:0,ro:"."}
+];
+
+var SENT=[
+  {i:"aller",     ro:"Ei ___ la piață dis-de-dimineață.",    c:["sont allés","sont allées"]},
+  {i:"venir",     ro:"Marie ___ la noi ieri.",               c:["est venue","est venu"]},
+  {i:"arriver",   ro:"Trenul ___ cu întârziere.",            c:["est arrivé","est arrivée"]},
+  {i:"partir",    ro:"El ___ fără să spună nimic.",          c:["est parti","est partie"]},
+  {i:"entrer",    ro:"Ea ___ în sală în liniște.",           c:["est entrée","est entré"]},
+  {i:"sortir",    ro:"Câinele ___ singur afară.",            c:["est sorti","est sortie"]},
+  {i:"monter",    ro:"Copiii ___ rapid în pod.",             c:["sont montés","sont montées","est monté","est montée"]},
+  {i:"descendre", ro:"El ___ din autobuz la ultima stație.", c:["est descendu","est descendue"]},
+  {i:"naître",    ro:"Bunicul meu ___ în 1945.",             c:["est né","est née"]},
+  {i:"mourir",    ro:"Din păcate, floarea ___ .",            c:["est morte","est mort"]},
+  {i:"tomber",    ro:"Cartea ___ de pe masă.",               c:["est tombée","est tombé"]},
+  {i:"rester",    ro:"Ea ___ acasă toată ziua.",             c:["est restée","est resté"]},
+  {i:"retourner", ro:"El ___ la Paris după vacanță.",        c:["est retourné","est retournée"]},
+  {i:"passer",    ro:"Autobuzul ___ deja.",                  c:["est passé","est passée"]},
+  {i:"rentrer",   ro:"Ei ___ acasă târziu.",                 c:["sont rentrés","sont rentrées","est rentré","est rentrée"]},
+  {i:"revenir",   ro:"Paul ___ din călătorie ieri.",         c:["est revenu","est revenue"]},
+  {i:"devenir",   ro:"Ea ___ o artistă celebră.",           c:["est devenue","est devenu"]},
+  {i:"remonter",  ro:"El ___ să ia pălăria uitată.",        c:["est remonté","est remontée"]},
+  {i:"redescendre",ro:"Ea ___ cu liftul.",                  c:["est redescendue","est redescendu"]},
+  {i:"repartir",  ro:"Echipa ___ a doua zi.",               c:["est repartie","est reparti"]},
+  {i:"se lever",     ro:"Ea ___ la șase dimineața.",        c:["s'est levée","s'est levé"]},
+  {i:"se laver",     ro:"El ___ pe mâini înainte de masă.", c:["s'est lavé","s'est lavée"]},
+  {i:"s'habiller",   ro:"Ea ___ elegant pentru petrecere.", c:["s'est habillée","s'est habillé"]},
+  {i:"se raser",     ro:"Tatăl meu ___ dimineața.",         c:["s'est rasé","s'est rasée"]},
+  {i:"s'asseoir",    ro:"El ___ lângă fereastră.",          c:["s'est assis","s'est assise"]},
+  {i:"s'endormir",   ro:"Copilul ___ repede.",              c:["s'est endormi","s'est endormie"]},
+  {i:"se réveiller", ro:"Ea ___ la miezul nopții.",         c:["s'est réveillée","s'est réveillé"]},
+  {i:"se souvenir",  ro:"El ___ brusc de adresă.",          c:["s'est souvenu","s'est souvenue"]},
+  {i:"se moquer",    ro:"Ei ___ de greșeala mea.",          c:["se sont moqués","se sont moquées","s'est moqué","s'est moquée"]},
+  {i:"se disputer",  ro:"Cei doi vecini ___ din nou.",      c:["se sont disputés","se sont disputées"]},
+  {i:"se réconcilier",ro:"Din fericire, ei ___.",           c:["se sont réconciliés","se sont réconciliées"]},
+  {i:"s'approcher",  ro:"Ea ___ încet de ușă.",            c:["s'est approchée","s'est approché"]},
+  {i:"se relever",   ro:"El ___ după cădere.",              c:["s'est relevé","s'est relevée"]},
+  {i:"s'arrêter",    ro:"Mașina ___ brusc.",                c:["s'est arrêtée","s'est arrêté"]},
+  {i:"se retourner", ro:"Ea ___ când a auzit zgomotul.",    c:["s'est retournée","s'est retourné"]},
+  {i:"s'éloigner",   ro:"El ___ fără un cuvânt.",           c:["s'est éloigné","s'est éloignée"]},
+  {i:"se sentir",    ro:"Ea ___ obosită toată ziua.",       c:["s'est sentie","s'est senti"]},
+  {i:"se promener",  ro:"Ei ___ în parc după-amiaza.",      c:["se sont promenés","se sont promenées","s'est promené","s'est promenée"]},
+  {i:"se dépêcher",  ro:"Ea ___ să nu întârzie.",           c:["s'est dépêchée","s'est dépêché"]},
+  {i:"se brosser",   ro:"El ___ pe dinți după micul dejun.",c:["s'est brossé","s'est brossée"]}
+];
+
+var ACCENTS=["é","è","ê","ë","à","â","î","ï","ô","ù","û","ü","ç","œ","æ","'"];
+
+var found=new Set(), score=0;
+var dosOrder=[], dosIdx=0;
+var qOrder=[], qIdx=0;
+
+function upd(){
+  document.getElementById('sf').textContent=found.size;
+  var el=document.getElementById('ss');
+  el.textContent=score;
+  el.classList.remove('score-flash');
+  void el.offsetWidth;
+  el.classList.add('score-flash');
+}
+
+function go(m){
+  ['scene','dossier','quiz'].forEach(function(x){
+    document.getElementById('p-'+x).style.display=x===m?'block':'none';
+    document.getElementById('tb-'+x).classList.toggle('on',x===m);
+  });
+  if(m==='dossier'&&dosIdx===0) startDos();
+  if(m==='quiz'&&qIdx===0) startQ();
+}
+
+function getS(inf){
+  for(var j=0;j<S.length;j++) if(S[j].i===inf) return S[j];
+  return null;
+}
+
+/* ── SCENA ── */
+function buildScene(){
+  var box=document.getElementById('sceneBox');
+  box.innerHTML='';
+  scene.forEach(function(seg){
+    if(!seg.b){box.appendChild(document.createTextNode(seg.ro));return;}
+    var sp=document.createElement('span');
+    sp.className='vw';
+    sp.textContent=seg.ro;
+    sp.setAttribute('data-fr',seg.fr);
+    sp.setAttribute('data-i',seg.i);
+    sp.setAttribute('data-k',seg.k);
+    sp.onclick=function(){clickScene(this);};
+    box.appendChild(sp);
+  });
+}
+
+function clickScene(el){
+  if(el.classList.contains('ve')||el.classList.contains('vp')) return;
+  var k=el.getAttribute('data-k');
+  var fr=el.getAttribute('data-fr');
+  var inf=el.getAttribute('data-i');
+  el.textContent=fr;
+  el.classList.add(k==='etre'?'ve':'vp');
+  if(!found.has(inf)){found.add(inf);score+=10;upd();}
+  var fb=document.getElementById('sceneFb');
+  var s=getS(inf);
+  fb.className='fb ok';
+  fb.textContent='✓ '+fr+' — infinitiv: '+inf+' ('+s.t+')';
+  setTimeout(function(){
+    fb.className='fb';
+    fb.textContent='Click pe un verb subliniat pentru a-l descoperi.';
+  },3000);
+}
+
+function revAll(){
+  document.querySelectorAll('.vw').forEach(function(el){
+    if(el.classList.contains('ve')||el.classList.contains('vp')) return;
+    el.textContent=el.getAttribute('data-fr');
+    el.classList.add(el.getAttribute('data-k')==='etre'?'ve':'vp');
+    found.add(el.getAttribute('data-i'));
+  });
+  upd();
+  var fb=document.getElementById('sceneFb');
+  fb.className='fb dn';
+  fb.textContent='Toți suspecții au fost dezvăluiți.';
+}
+
+function resetScene(){
+  found.clear();score=0;upd();
+  buildScene();
+  var fb=document.getElementById('sceneFb');
+  fb.className='fb';
+  fb.textContent='Click pe un verb subliniat pentru a-l descoperi.';
+}
+
+/* ── DOSAR MCQ ── */
+function startDos(){
+  dosOrder=[];
+  for(var j=0;j<SENT.length;j++) dosOrder.push(j);
+  dosOrder.sort(function(){return Math.random()-.5;});
+  dosIdx=0;
+  showDos();
+}
+
+function showDos(){
+  var bar=document.getElementById('dosBar');
+  if(bar) bar.style.width=Math.round(dosIdx/SENT.length*100)+'%';
+  if(dosIdx>=dosOrder.length){
+    document.getElementById('dosCardBox').innerHTML='<div class="dos-card" style="text-align:center;padding:2rem"><div style="font-size:2rem;margin-bottom:10px">🎉</div><div style="font-family:\'Playfair Display\',serif;font-size:18px;font-weight:700;color:#f5c842">Dosar complet!</div><div style="font-size:14px;color:#a09dbb;margin-top:6px">Ai parcurs toate cele 40 de propoziții.</div></div>';
+    document.getElementById('dosFb').className='fb dn';
+    document.getElementById('dosFb').textContent='Felicitări! Treci la Interogatoriu pentru producție liberă.';
+    if(bar) bar.style.width='100%';
+    return;
+  }
+  document.getElementById('dosProgLbl').textContent='Exercițiu '+(dosIdx+1)+' / '+SENT.length;
+  var item=SENT[dosOrder[dosIdx]];
+  var s=getS(item.i);
+  var corr=item.c[0];
+  var opts=buildOpts(corr,item.i,s.k);
+  var roHtml=item.ro.replace('___','<span class="blank">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>');
+  var html='<div class="dos-card">'
+    +'<div class="dos-ro">'+roHtml+'</div>'
+    +'<div class="dos-inf">infinitiv: <strong>'+item.i+'</strong> — '+s.t+'</div>'
+    +'<div class="dos-opts">';
+  opts.forEach(function(o){
+    html+='<button class="dos-opt" onclick="ansDos(this,\''+esc(o)+'\',\''+esc(corr)+'\',\''+esc(item.i)+'\')">'+o+'</button>';
+  });
+  html+='</div></div>';
+  document.getElementById('dosCardBox').innerHTML=html;
+  document.getElementById('dosFb').className='fb';
+  document.getElementById('dosFb').textContent='Alege una din variante.';
+}
+
+function esc(s){return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'");}
+
+function buildOpts(corr,inf,k){
+  var pool=[];
+  S.forEach(function(sv){
+    if(sv.k===k&&sv.i!==inf){
+      var p=sv.p.split('(')[0].trim();
+      if(p!==corr) pool.push(p);
+    }
+  });
+  pool.sort(function(){return Math.random()-.5;});
+  var opts=[corr];
+  for(var j=0;j<pool.length&&opts.length<4;j++){
+    if(opts.indexOf(pool[j])<0) opts.push(pool[j]);
+  }
+  opts.sort(function(){return Math.random()-.5;});
+  return opts;
+}
+
+function ansDos(btn,chosen,corr,inf){
+  var btns=document.querySelectorAll('.dos-opt');
+  btns.forEach(function(b){b.disabled=true;});
+  var fb=document.getElementById('dosFb');
+  if(chosen===corr){
+    btn.classList.add('ok');
+    fb.className='fb ok';
+    fb.textContent='✓ Corect! +15 pts — '+corr;
+    score+=15;
+    if(!found.has(inf)) found.add(inf);
+    upd();
+  } else {
+    btn.classList.add('er');
+    btns.forEach(function(b){if(b.textContent===corr) b.classList.add('ok');});
+    fb.className='fb er';
+    fb.textContent='✗ Greșit. Forma corectă: '+corr;
+  }
+}
+
+function nextDos(){dosIdx++;showDos();}
+function resetDos(){dosIdx=0;startDos();}
+
+/* ── INTEROGATORIU ── */
+function startQ(){
+  qOrder=[];
+  for(var j=0;j<SENT.length;j++) qOrder.push(j);
+  qOrder.sort(function(){return Math.random()-.5;});
+  qIdx=0;
+  showQ();
+}
+
+function showQ(){
+  var bar=document.getElementById('qBar');
+  if(bar) bar.style.width=Math.round(qIdx/SENT.length*100)+'%';
+  if(qIdx>=qOrder.length){
+    document.getElementById('qCardBox').innerHTML='<div class="q-card" style="text-align:center;padding:2rem"><div style="font-size:2rem;margin-bottom:10px">🏆</div><div style="font-family:\'Playfair Display\',serif;font-size:20px;font-weight:700;color:#f5c842">Caz închis!</div><div style="font-size:14px;color:#a09dbb;margin-top:6px">Ai interogat toți cei 40 de suspecți.</div></div>';
+    document.getElementById('qFb').className='fb dn';
+    document.getElementById('qFb').textContent='Felicitări, inspector! Scor final: '+score+' puncte.';
+    if(bar) bar.style.width='100%';
+    return;
+  }
+  document.getElementById('qProgLbl').textContent='Întrebare '+(qIdx+1)+' / '+SENT.length;
+  var item=SENT[qOrder[qIdx]];
+  var s=getS(item.i);
+  var kbHtml='<div class="accent-kb">';
+  ACCENTS.forEach(function(a){
+    kbHtml+='<button class="ak" type="button" onclick="insertAccent(\''+a+'\')">'+a+'</button>';
+  });
+  kbHtml+='</div>';
+  var html='<div class="q-card">'
+    +'<div class="q-stamp">🔎 Suspect: '+item.i+'</div>'
+    +'<div class="q-ro">'+item.ro.replace('___','___________')+'</div>'
+    +'<div class="q-hint">infinitiv: <strong>'+item.i+'</strong> — '+s.t+'</div>'
+    +'<div class="q-label">Scrie passé composé:</div>'
+    +kbHtml
+    +'<div class="q-input-row">'
+    +'<input class="q-input" id="qInput" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="ex: est arrivé(e)" onkeydown="if(event.key===\'Enter\')checkQ()">'
+    +'<button class="q-submit" id="qSubmitBtn" onclick="checkQ()">Verifică</button>'
+    +'</div></div>';
+  document.getElementById('qCardBox').innerHTML=html;
+  document.getElementById('qFb').className='fb';
+  document.getElementById('qFb').textContent='Scrie forma completă și apasă Verifică sau Enter.';
+  window._qCorr=item.c;
+  window._qInf=item.i;
+  setTimeout(function(){var inp=document.getElementById('qInput');if(inp) inp.focus();},50);
+}
+
+function insertAccent(ch){
+  var inp=document.getElementById('qInput');
+  if(!inp) return;
+  inp.focus();
+  var s=inp.selectionStart,e=inp.selectionEnd;
+  inp.value=inp.value.substring(0,s)+ch+inp.value.substring(e);
+  inp.selectionStart=inp.selectionEnd=s+ch.length;
+}
+
+function checkQ(){
+  var inp=document.getElementById('qInput');
+  if(!inp||inp.disabled) return;
+  var val=inp.value.trim();
+  if(!val) return;
+  inp.disabled=true;
+  document.getElementById('qSubmitBtn').disabled=true;
+  var fb=document.getElementById('qFb');
+  var norm=val.toLowerCase();
+  var ok=window._qCorr.some(function(c){return norm===c.toLowerCase();});
+  if(ok){
+    inp.classList.add('ok');
+    fb.className='fb ok';
+    fb.textContent='✓ Corect! +20 pts — '+window._qCorr[0];
+    score+=20;
+    if(!found.has(window._qInf)) found.add(window._qInf);
+    upd();
+  } else {
+    inp.classList.add('er');
+    fb.className='fb er';
+    fb.textContent='✗ Greșit. Forma corectă: '+window._qCorr[0];
+  }
+}
+
+function nextQ(){qIdx++;showQ();}
+function resetQ(){qIdx=0;startQ();}
+
+buildScene();
+upd();
+go('scene');
+</script>
+</body>
+</html>
